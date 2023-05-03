@@ -1,0 +1,17 @@
+<div class="row" *ngIf="keyresults">
+  <keyresult-item 
+    [keyresult]="keyresult"
+    [objectiveOppened]="objectiveOppened"
+    [objective]="objective"
+    [elementHeight]="elementHeight"
+    *ngFor="let keyresult of keyresults"
+  ></keyresult-item>
+</div>
+
+  <div class="row" *ngIf="keyresults?.length == 0">
+    <div class="flex text-center pl-10">
+      <h3>Nenhum resultado-chave encontrado para este Objetivo.</h3>
+    </div>
+  </div>
+
+

@@ -1,0 +1,36 @@
+<div class="pt-3">
+  <div class="flex justify-end">
+    <button mat-raised-button color="primary" (click)="openTeamDialog(null)">
+      Cadastrar
+    </button>
+  </div>
+  <div class="flex">
+    <table class="table table-striped">
+      <thead>
+        <th>Equipe</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let team of teams">
+          <td>{{ team.name }}</td>
+          <td style="text-align: right">
+            <button
+              mat-icon-button
+              matTooltip="Editar Equipe"
+              (click)="openTeamDialog(team.id)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              matTooltip="Remover Equipe"
+              (click)="removeTeam(team.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

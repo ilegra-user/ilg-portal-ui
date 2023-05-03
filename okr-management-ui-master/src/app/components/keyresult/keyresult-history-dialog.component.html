@@ -1,0 +1,19 @@
+<form style="min-width: 600px;">
+    <h2 mat-dialog-title style="margin-bottom: 0;">{{data.dialogTitle}}</h2>
+
+    <mat-dialog-content class="mat-typography" style="padding-top: 15px;">
+        <div class="row">
+            <canvas baseChart width="400" 
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"  
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+          </canvas>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Sair</button>
+    </mat-dialog-actions>
+</form>

@@ -1,0 +1,29 @@
+<h2 mat-dialog-title style="margin-bottom: 0">{{ data.dialogTitle }}</h2>
+<mat-dialog-content class="mat-typography" style="padding-top: 20px">
+  <div class="flex">
+    <mat-form-field appearance="outline" style="width: 400px">
+      <mat-label> Nome da equipe </mat-label>
+      <input matInput [(ngModel)]="team.name" [value]="team.name" />
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<h4>Tipo</h4>
+<mat-form-field appearance="fill">
+  <mat-label>Tipo da Equipe</mat-label>
+  <mat-select [(ngModel)]="team.type">
+    <mat-option *ngFor="let teamType of teamTypes" [value]="teamType.value">
+      {{ teamType.viewValue }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="salvar()"
+    [disabled]="!team.name"
+  >
+    Salvar
+  </button>
+</mat-dialog-actions>

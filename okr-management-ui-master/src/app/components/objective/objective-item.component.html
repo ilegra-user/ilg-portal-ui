@@ -1,0 +1,244 @@
+<mat-accordion multi class="flex w-full relative">
+  <a
+    class="flex items-center justify-between p-2 h-12 cursor-pointer absolute z-10"
+    [ngStyle]="{
+      'margin-left':
+        objective.type == 'STRATEGIC'
+          ? '0px'
+          : objective.type == 'TATIC'
+          ? '25px'
+          : '50px'
+    }"
+    matTooltip="Objetivo {{
+      objective.type == 'STRATEGIC'
+        ? 'Estratégico'
+        : objective.type == 'TATIC'
+        ? 'Tático'
+        : 'Operacional'
+    }}"
+    [matMenuTriggerFor]="menu"
+  >
+    <svg
+      *ngIf="objective.type == 'STRATEGIC'"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12Z"
+        fill="#FF5800"
+      />
+      <path
+        d="M20.3078 12.0001C20.3078 16.5883 16.5883 20.3078 12.0001 20.3078C7.41186 20.3078 3.69238 16.5883 3.69238 12.0001C3.69238 7.41186 7.41186 3.69238 12.0001 3.69238C16.5883 3.69238 20.3078 7.41186 20.3078 12.0001Z"
+        fill="white"
+      />
+      <path
+        d="M17.0769 12C17.0769 14.8039 14.8039 17.0769 12 17.0769C9.19611 17.0769 6.9231 14.8039 6.9231 12C6.9231 9.19611 9.19611 6.9231 12 6.9231C14.8039 6.9231 17.0769 9.19611 17.0769 12Z"
+        fill="#FF5800"
+      />
+    </svg>
+
+    <svg
+      *ngIf="objective.type == 'TATIC'"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12Z"
+        fill="#1B50E0"
+      />
+      <path
+        d="M20.3078 12.0001C20.3078 16.5883 16.5883 20.3078 12.0001 20.3078C7.41186 20.3078 3.69238 16.5883 3.69238 12.0001C3.69238 7.41186 7.41186 3.69238 12.0001 3.69238C16.5883 3.69238 20.3078 7.41186 20.3078 12.0001Z"
+        fill="white"
+      />
+      <path
+        d="M17.0769 12C17.0769 14.8039 14.8039 17.0769 12 17.0769C9.19611 17.0769 6.9231 14.8039 6.9231 12C6.9231 9.19611 9.19611 6.9231 12 6.9231C14.8039 6.9231 17.0769 9.19611 17.0769 12Z"
+        fill="#1B50E0"
+      />
+    </svg>
+
+    <svg
+      *ngIf="objective.type == 'OPERATIONAL'"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12Z"
+        fill="#198754"
+      />
+      <path
+        d="M20.3078 12.0001C20.3078 16.5883 16.5883 20.3078 12.0001 20.3078C7.41186 20.3078 3.69238 16.5883 3.69238 12.0001C3.69238 7.41186 7.41186 3.69238 12.0001 3.69238C16.5883 3.69238 20.3078 7.41186 20.3078 12.0001Z"
+        fill="white"
+      />
+      <path
+        d="M17.0769 12C17.0769 14.8039 14.8039 17.0769 12 17.0769C9.19611 17.0769 6.9231 14.8039 6.9231 12C6.9231 9.19611 9.19611 6.9231 12 6.9231C14.8039 6.9231 17.0769 9.19611 17.0769 12Z"
+        fill="#198754"
+      />
+    </svg>
+  </a>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="editObjective()">
+      Editar Objetivo
+      {{
+        objective.type == "STRATEGIC"
+          ? "Estratégico"
+          : objective.type == "TATIC"
+          ? "Tático"
+          : "Operacional"
+      }}
+    </button>
+    <button mat-menu-item (click)="removeObjective()">
+      Excluir Objetivo
+      {{
+        objective.type == "STRATEGIC"
+          ? "Estratégico"
+          : objective.type == "TATIC"
+          ? "Tático"
+          : "Operacional"
+      }}
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="openKeyResultDialog()">
+      Novo Resultado Chave
+    </button>
+    <button
+      mat-menu-item
+      *ngIf="!(this.objective.type == 'OPERATIONAL')"
+      (click)="openObjectiveDialog()"
+    >
+      Novo Objetivo
+      {{ objective.type == "STRATEGIC" ? "Tático" : "Operacional" }}
+    </button>
+  </mat-menu>
+
+  <mat-expansion-panel
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+    class="flex items-center justify-between w-full mat-elevation-z0 m-0"
+    style="margin: 0; padding-left: 0; padding-right: 0"
+    hideToggle
+    *ngIf="!removed"
+  >
+    <mat-expansion-panel-header
+      style="padding: 0 5px"
+      class="h-12 ml-9"
+      (click)="getElementHeight()"
+    >
+      <mat-panel-title>
+        <span
+          [ngStyle]="{
+            'margin-left':
+              objective.type == 'STRATEGIC'
+                ? '0px'
+                : objective.type == 'TATIC'
+                ? '25px'
+                : '50px'
+          }"
+          >{{ objective.title }}
+
+          <br>
+          <span [ngStyle]="{
+            'font-size': '9px',
+            'background': '#817d79',
+            'color': 'white',
+            'font-weight': '200',
+            'border-radius': '3px',
+            'padding': '3px'
+          }">{{ objective.team.name }}</span>
+        </span>
+      <br>
+      </mat-panel-title>
+      <div class="flex justify-between">
+        <div
+          class="rounded text-white text-center p-3 px-5 min-w-[80px]"
+          [ngStyle]="{ 'background-color': progressColor }"
+        >
+          {{ objective.progress | number: "1.0-0" }} %
+        </div>
+      </div>
+      <button
+        mat-icon-button
+        matTooltip="{{ stateOpened ? 'Recolher' : 'Expandir' }}"
+        (click)="toggle()"
+        class="text-[#FF5800]"
+      >
+        <mat-icon>{{
+          panelOpenState ? "expand_less" : "expand_more"
+        }}</mat-icon>
+      </button>
+      <div
+        *ngIf="this.objective.type == 'STRATEGIC'"
+        [ngClass]="{ hidden: !panelOpenState }"
+        class="absolute -left-4 top-11 z-10"
+      >
+        <div
+          class="vertical-line"
+          style="border-left: 1px dotted #ccc"
+          [style]="{ height: elementHeight + 'px' }"
+        ></div>
+      </div>
+      <div
+        *ngIf="this.objective.type == 'TATIC'"
+        [ngClass]="{ hidden: !panelOpenState }"
+        class="absolute left-2 top-11 z-10"
+      >
+        <div
+          class="vertical-line"
+          style="border-left: 1px dotted #ccc"
+          [style]="{ height: elementHeight + 'px' }"
+        ></div>
+      </div>
+      <div
+        *ngIf="objectiveFather && this.objective.type == 'TATIC'"
+        style="
+          border-bottom: 1px dotted #ccc;
+          width: 10px;
+          left: -16px;
+          position: absolute;
+          bottom: 25px;
+        "
+      ></div>
+      <div
+        *ngIf="objectiveFather && this.objective.type == 'OPERATIONAL'"
+        style="
+          border-bottom: 1px dotted #ccc;
+          width: 10px;
+          left: 8px;
+          position: absolute;
+          bottom: 25px;
+        "
+      ></div>
+    </mat-expansion-panel-header>
+
+    <div>
+      <div class="pr-0">
+        
+        <keyresult-list
+          [keyresults]="keyresults"
+          [objectiveOppened]="stateOpened"
+          [objective]="objective"
+          id="objective-{{ objective.id }}"
+          [elementHeight]="getElementHeight()"
+          (onClick)="getElementHeight()"
+        >
+        </keyresult-list>
+        <objective-list
+          [objectives]="childObjectives"
+          [cycle]="cycle"
+          [title]="'Objetivo Tático'"
+          [objectiveFather]="objective"
+        >
+        </objective-list>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

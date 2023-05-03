@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #fff !important;
+}
+
+[data-letters]:before {
+  content: attr(data-letters);
+  display: inline-block;
+  font-size: 1em;
+  width: 2.5em;
+  height: 2.5em;
+  line-height: 2.5em;
+  text-align: center;
+  border-radius: 50%;
+  background: plum;
+  vertical-align: middle;
+  margin-right: 1em;
+  color: white;
+}
+
+.expand-button {
+  height: 30px !important;
+  width: 30px !important;
+  margin-right: 5px !important;
+}
+
+.decoration-none {
+  text-decoration: none;
+}
+
+.mat-progress-spinner circle {
+  stroke: #ff6b0d;
+}
+
+
+

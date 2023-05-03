@@ -1,0 +1,209 @@
+<form style="min-width: 600px" (ngSubmit)="salvar()" #form="ngForm">
+  <h2 mat-dialog-title style="margin-bottom: 0">{{ data.dialogTitle }}</h2>
+  <span>
+    Você está
+    {{ data.keyResultId != null ? "editando um" : "criando um novo" }} resultado
+    chave
+    {{ data.keyResultId != null ? "do" : "para o" }}
+    objetivo <b>🎯 {{ data.objective.title }}</b>
+  </span>
+
+  <mat-dialog-content class="mat-typography pt-4">
+    <div class="flex">
+      <mat-form-field appearance="outline">
+        <mat-label>Equipe</mat-label>
+        <mat-select name="team" [(value)]="keyResult.teamId" required>
+          <mat-option *ngFor="let team of teams" [value]="team.id">
+            {{ team.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="flex">
+      <mat-form-field
+        class="chip-list"
+        appearance="outline"
+        style="width: 100%"
+      >
+        <mat-label>Etiquetas</mat-label>
+        <mat-chip-list #labelList>
+          <mat-chip *ngFor="let label of labels" (removed)="removeLabel(label)">
+            {{ label }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input
+            matInput
+            name="label"
+            [(ngModel)]="keyResult.labels"
+            placeholder="Adicionar Etiqueta"
+            [matChipInputFor]="labelList"
+            matTooltip="Adicione marcadores a este resultado chave, utilize vírgula para separá-los."
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="addLabel($event)"
+          />
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+    <div class="flex">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Descrição do Resultado Chave</mat-label>
+        <textarea
+          name="keyResult-description"
+          matInput
+          [(ngModel)]="keyResult.description"
+          required
+          placeholder="Ex: AUMENTAR de 5.000 para 15.000 o número sócios do clube."
+        ></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="flex gap-4 w-full">
+      <mat-form-field appearance="outline" class="basis-1/6">
+        <mat-label>Tipo</mat-label>
+        <mat-select
+          name="team"
+          [(value)]="keyResult.keyResultTypeId"
+          required
+          [(ngModel)]="keyResult.keyResultTypeId"
+          (valueChange)="keyResultTypeChange($event)"
+        >
+          <mat-option *ngFor="let type of types" [value]="type.id">
+            {{ type.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Valor Base</mat-label>
+        <input
+          matInput
+          name="keyResult-baseline"
+          class="item-right-align"
+          type="number"
+          (change)="changeResult()"
+          (change)="changeProgress()"
+          matTooltip="Este valor refere-se ao valor da métrica no momento da criação do resultado chave. Caso você ainda não tenha esse valor, mantenha o campo zerado."
+          required
+          [disabled]="keyResult.keyResultTypeId == null"
+          [ngModel]="keyResult.baseline || ''"
+          (ngModelChange)="keyResult.baseline = $event"
+          placeholder="0"
+        />
+        <span matPrefix class="top-0">
+          {{ getCurrencyItem() }}
+        </span>
+        <span matSuffix>
+          {{ keyResultTypeIdChange !== 5 ? ".00" : "" }}
+        </span>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Valor Atual </mat-label>
+      
+        <input
+          name="keyResult-result"
+          type="number"
+          class="item-right-align"
+          matInput
+          matTooltip="Valor atualizado da métrica. Ele deverá ser atualizado sempre que a métrica for medida, preferencialmente na cerimônia de check-in."
+          (change)="changeProgress()"
+          [disabled]="keyResult.keyResultTypeId == null"
+          [ngModel]="keyResult.value || ''"
+          (ngModelChange)="keyResult.value = $event"
+          placeholder="0"
+          required
+        />
+        <span matPrefix class="top-0">
+          {{ getCurrencyItem() }}
+          &nbsp;</span
+        >
+        <span matSuffix>
+          {{ keyResultTypeIdChange !== 5 ? ".00" : "" }}
+        </span>
+      </mat-form-field>
+
+      <mat-form-field
+        appearance="outline"
+        matTooltip="Meta definida no momento durante a criação do resultado chave."
+        style="width: 100%"
+        floatLabel="always"
+      >
+        <mat-label>Valor Alvo</mat-label>
+        <input
+          name="keyResult-target"
+          class="item-right-align"
+          type="number"
+          matInput
+          [disabled]="
+            !keyResult.baseline == null || keyResult.keyResultTypeId == null
+          "
+          [ngModel]="keyResult.target || ''"
+          (ngModelChange)="keyResult.target = $event"
+          placeholder="0"
+          (change)="changeProgress()"
+          required
+        />
+
+        <span matPrefix>
+          {{ getCurrencyItem() }}
+          &nbsp;</span
+        >
+        <span matSuffix>
+          {{ keyResultTypeIdChange !== 5 ? ".00" : "" }}
+        </span>
+      </mat-form-field>
+
+      <mat-form-field
+        appearance="outline"
+        style="border-bottom: solid red"
+        matTooltip="Caminho percorrido entre o valor base e a meta."
+        style="width: 100%"
+      >
+        <mat-label [ngStyle]="{ color: progressColor }"> Progresso </mat-label>
+        <input
+          name="keyResult-progress"
+          type="percent"
+          matInput
+          [value]="keyResult.progress + '%'"
+          disabled
+        />
+      </mat-form-field>
+    </div>
+    <div class="flex">
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Anotações</mat-label>
+        <textarea
+          name="keyResult-annotations"
+          matInput
+          [(ngModel)]="keyResult.annotations"
+        ></textarea>
+      </mat-form-field>
+    </div>
+
+    <!-- <span *ngIf="data.objectiveFather"><b>Objetivo Estratégico:</b><br /> {{data.objectiveFather.title}}</span> -->
+  </mat-dialog-content>
+
+  
+
+
+  <mat-dialog-actions align="end">
+    <button  mat-raised-button
+    color="primary"
+    type="button"
+    (click)="showHistory()"
+    matTooltip="Clique aqui para ver a evolução desse resultado chave.">Ver Histórico 
+    <mat-icon>poll</mat-icon></button>
+
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!form.valid"
+    >
+      Salvar
+    </button>
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,79 @@
+<div class="container mx-auto shadow-md rounded-md">
+  <div class="p-6">
+    <h2 class="text-3xl text-purple mb-4">
+      OKRs ilegra: O trabalho de cada um impactando 
+      em um resultado melhor para todos!
+    </h2>
+    <p class="text-gray-500 mb-12">
+      Aqui, podemos nos ajudar para chegar mais rápido aos objetivos,
+      resultados-chave e entender o propósito da ilegra.
+    </p>
+    <div class="p-8 border rounded-md border-gray-200">
+      <h2 class="text-3xl text-purple ml-4 mb-12">Objetivos ilegra</h2>
+      <div class="flex">
+        <div
+          class="border rounded-md border-gray-200 p-4 text-center w-1/3 mx-4"
+          *ngFor="let objIlegra of objectivesIlegra"
+        >
+          <div class="flex justify-center items-center mb-4">
+            <mat-progress-spinner
+              mode="determinate"
+              [value]="objIlegra.progress"
+            >
+            </mat-progress-spinner>
+            <span class="text-3xl absolute font-medium text-orange-50"
+              >{{ objIlegra.progress | number: "1.0-0" }}%</span
+            >
+          </div>
+          <p class="text-gray-500">{{ objIlegra.title }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col gap-5 p-6">
+    <div class="flex justify-center border rounded-[4px] bg-white">
+      <div class="flex justify-between items-center gap-10 pt-10 pb-4 w-3/5">
+        <mat-form-field appearance="outline" class="w-[296px]">
+          <mat-label>Equipe</mat-label>
+          <mat-select
+            (selectionChange)="retrieveFilteredObjectives()"
+            [(ngModel)]="team"
+          >
+            <mat-option *ngFor="let team of teams" [value]="team"
+              >{{ team.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-[296px]">
+          <mat-label>Ciclo</mat-label>
+          <mat-select
+            (selectionChange)="retrieveObjectives()"
+            [(ngModel)]="cycle"
+          >
+            <mat-option *ngFor="let cycle of cycles" [value]="cycle"
+              >{{ cycle.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="flex items-center h-full pb-4">
+          <a mat-button (click)="cleanFilter()">Limpar</a>
+        </div>
+      </div>
+    </div>
+    
+    <div
+      class="px-10 border rounded-md"
+      *ngIf="objectives && defaultTeam && team !== null"
+     
+    >
+      <objective-list
+        [title]="'Obj Estratégico'"
+        [objectives]="objectives"
+        [level]="''"
+        [cycle]="cycle"
+        [team]="team"
+      ></objective-list>
+    </div>
+    <div  id="objective-list"></div>
+  </div>
+</div>

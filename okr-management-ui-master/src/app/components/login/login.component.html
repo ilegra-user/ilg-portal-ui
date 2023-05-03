@@ -1,0 +1,105 @@
+<div
+  class="flex items-center bg-gradient-to-r from-orange-50 via-orange-25 to-orange-100 h-screen"
+>
+  <div class="flex w-70 lg:w-auto 2xl:w-320 mx-auto my-20 shadow-xl">
+    <div
+      id="login-area"
+      class="flex flex-col items-center bg-purple py-10 lg:py-12 2xl:py-24 px-8 w-full lg:w-2/6"
+    >
+      <div class="flex items-center flex-col justify-center">
+        <img src="./assets/logo.svg" />
+        <div class="text-white text-xl pt-4">Bem vindo(a)!</div>
+        <div class="text-white text-2xl pb-12">Entre com a sua conta</div>
+      </div>
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="login()"
+        class="w-full 2xl:w-96 2xl:px-10"
+      >
+        <div class="flex flex-col text-white">
+          <mat-form-field appearance="outline" hideRequiredMarker>
+            <mat-label class="text-white relative">Usuário</mat-label>
+            <input
+              matInput
+              placeholder="Informe seu usuário"
+              [type]="'text'"
+              class="placeholder-gray-50"
+              formControlName="username"
+            />
+            <mat-icon matPrefix>
+              <img src="./assets/user.svg" width="18px" class="pt-0" />
+            </mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="flex flex-col text-white relative">
+          <mat-form-field appearance="outline" hideRequiredMarker>
+            <mat-label class="text-white relative">Senha</mat-label>
+            <input
+              matInput
+              placeholder="Informe sua senha"
+              [type]="hide ? 'password' : 'text'"
+              class="placeholder-gray-50"
+              formControlName="password"
+              [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+            />
+            <mat-icon matPrefix>
+              <img src="./assets/locker.svg" />
+            </mat-icon>
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+            <mat-error
+              *ngIf="
+                submitted && f.password.errors && f.password.errors.required
+              "
+            >
+              <div class="text-outline text-xs">
+                Usuário e senha são obrigatórios
+              </div>
+            </mat-error>
+          </mat-form-field>
+          <div
+            *ngIf="!f.password.errors?.required && error"
+            class="absolute -bottom-0 left-2 text-xs text-outline"
+          >
+            {{ error }}
+          </div>
+        </div>
+        <span class="flex">
+          <mat-checkbox
+            class="text-white border-red-500"
+            [color]="'warn'"
+            formControlName="rememberMe"
+            >Lembrar de mim
+          </mat-checkbox>
+        </span>
+        <button
+          [disabled]="loading"
+          class="bg-orange-50 px-4 py-3.5 w-full rounded-3xl text-sm text-white mt-12 shadow"
+        >
+          <span *ngIf="loading"></span>
+          Entrar
+        </button>
+      </form>
+    </div>
+    <div
+      class="hidden lg:flex lg:px-24 items-center justify-center bg-gradient-to-r from-orange-100 via-orange-200 to-orange-300 w-full"
+    >
+      <div class="flex flex-col items-center">
+        <img src="./assets/rafiki.svg" width="505px" />
+        <div class="text-purple text-3xl font-semibold pt-10">
+          Acompanhe as OKRs da ilegra
+        </div>
+        <span class="text-white text-2xl pt-2"
+          >Dê um UP na nossa performance</span
+        >
+      </div>
+    </div>
+  </div>
+</div>

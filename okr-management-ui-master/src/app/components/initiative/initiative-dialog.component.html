@@ -1,0 +1,55 @@
+<form style="min-width: 600px" (ngSubmit)="salvar()" #form="ngForm">
+  <h2 mat-dialog-title style="margin-bottom: 0">{{ data.dialogTitle }}</h2>
+  <span>
+    Você está
+    {{ data.initiativeId != null ? "editando uma" : "criando uma nova" }}
+    iniciativa
+    {{ data.initiativeId != null ? "do" : "para o" }}
+    resultado chave <b>🔑 {{ data.keyResult.description }}</b>
+  </span>
+
+  <mat-dialog-content class="mat-typography" style="padding-top: 15px">
+    <div class="flex">
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Título da Iniciativa</mat-label>
+        <input
+          name="initiative-title"
+          type="text"
+          matInput
+          [(ngModel)]="initiative.title"
+          required
+        />
+      </mat-form-field>
+    </div>
+    <div class="flex">
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Anotações</mat-label>
+        <textarea
+          name="initiative-description"
+          matInput
+          [(ngModel)]="initiative.description"
+        ></textarea>
+      </mat-form-field>
+    </div>
+    <div class="flex">
+      <mat-checkbox
+        style="margin-right: 10px"
+        [checked]="initiative.completed"
+        (change)="changeCompleted()"
+      >
+        Esta iniciativa já foi concluída?
+      </mat-checkbox>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!form.valid"
+    >
+      Salvar
+    </button>
+  </mat-dialog-actions>
+</form>

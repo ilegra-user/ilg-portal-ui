@@ -1,0 +1,46 @@
+<h2 mat-dialog-title style="margin-bottom: 0">{{ data.dialogTitle }}</h2>
+<mat-dialog-content class="mat-typography" style="padding-top: 20px">
+  <div class="grid grid-cols-3 gap-3">
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label> Identificador do Ciclo </mat-label>
+      <input matInput [(ngModel)]="cycle.title" [value]="cycle.title" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Período Inicial</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [value]="cycle.startDate"
+        [(ngModel)]="cycle.startDate"
+        [max]="cycle.endDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Período Final</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker2"
+        [value]="cycle.endDate"
+        [(ngModel)]="cycle.endDate"
+        [min]="cycle.startDate"
+        [disabled]="!cycle.startDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="salvar()"
+    [disabled]="!cycle.title || !cycle.startDate || !cycle.endDate"
+  >
+    Salvar
+  </button>
+</mat-dialog-actions>

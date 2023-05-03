@@ -1,0 +1,50 @@
+.keyresult-card {
+  background-color: white;
+  height: 45px;
+  padding-right: 0;
+}
+
+.keyresult-card-title {
+  text-align: left;
+  height: 100%;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.keyresult-card-author {
+  padding: 0px;
+  text-align: left;
+}
+
+.keyresult-card-metric {
+  padding: 0px;
+  text-align: left;
+}
+
+.keyresult-card-progress,
+.keyresult-card-status {
+  height: 100%;
+  text-align: center;
+}
+
+.keyresult-card-actions {
+  height: 100%;
+  padding: 0px 5px;
+  text-align: left;
+}
+
+.keyresult-card-collapse {
+  height: 100%;
+  padding: 0px 0px;
+  text-align: center;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.initiative-through {
+  text-decoration: line-through;  
+  color: #b0b0b0;
+ }

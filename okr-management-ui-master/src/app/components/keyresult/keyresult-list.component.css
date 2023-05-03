@@ -1,0 +1,14 @@
+.row {
+  margin-top: 15px;
+}
+
+.keyresult-list-headers-align .mat-expansion-panel {
+  box-shadow: none;
+  background: none;
+  margin-bottom: 2px;
+}
+
+.keyresult-list-headers-align .mat-expansion-panel-header {
+  border-radius: 20px 0 0 20px;
+  height: 35px;
+}

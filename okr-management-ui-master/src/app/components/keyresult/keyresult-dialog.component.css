@@ -1,0 +1,17 @@
+.item-right-align {
+  text-align: right;
+}
+
+input.item-right-align::-webkit-outer-spin-button,
+input.item-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.item-right-align {
+  -moz-appearance: textfield;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-prefix,
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-suffix {
+  top: 0 !important;
+}

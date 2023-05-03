@@ -1,0 +1,17 @@
+<div class="flex justify-center">
+  <div class="container mx-auto">
+    <h2 class="mt-5">Configurações</h2>
+    <mat-card style="margin-top: 15px" *ngIf="cycles">
+      <mat-tab-group>
+        <mat-tab label="Ciclos">
+          <cycle-configuration></cycle-configuration>
+        </mat-tab>
+        <mat-tab label="Equipes">
+          <team-configuration></team-configuration>
+        </mat-tab>
+      </mat-tab-group>
+
+      <!-- <cycle-list [title]="'Ciclos'" [cycles]="cycles"> </cycle-list> -->
+    </mat-card>
+  </div>
+</div>

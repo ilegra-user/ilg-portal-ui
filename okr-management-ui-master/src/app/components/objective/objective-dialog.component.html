@@ -1,0 +1,64 @@
+<form style="min-width: 600px" (ngSubmit)="salvar()" #form="ngForm">
+  <h2 mat-dialog-title style="margin-bottom: 0">{{ data.dialogTitle }}</h2>
+  <span *ngIf="data.cycle">
+    Você está
+    {{ data.objectiveId != null ? "editando um" : "criando um novo" }} objetivo
+    {{ data.objectiveId != null ? "do" : "para o" }}
+    ciclo
+    <b
+      matTooltip="De {{ data.cycle.startDate | date: 'dd/MM/yyyy' }} à {{
+        data.cycle.endDate | date: 'dd/MM/yyyy'
+      }}"
+      >{{ data.cycle.title }}</b
+    >.
+  </span>
+
+  <mat-dialog-content class="mat-typography" style="padding-top: 10px">
+    <mat-form-field appearance="outline">
+      <mat-label>Equipe</mat-label>
+      <mat-select name="team" [(value)]="objective.teamId" required>
+        <mat-option *ngFor="let team of teams" [value]="team.id">
+          {{ team.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Descrição do Objetivo</mat-label>
+      <textarea
+        name="objective-title"
+        matInput
+        [(ngModel)]="objective.title"
+        cdkFocusInitial
+        required
+        placeholder="Ex: Impulsionar nossos colaboradores ao seu maior potencial de desenvolvimento pessoal e técnico."
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Anotações</mat-label>
+      <textarea
+        name="objective-annotations"
+        matInput
+        [(ngModel)]="objective.annotations"
+      ></textarea>
+    </mat-form-field>
+    <span *ngIf="data.objectiveFather?.type === 'TATIC'"
+      ><b>Objetivo Tático:</b><br />
+      {{ data.objectiveFather.title }}</span
+    >
+    <span *ngIf="data.objectiveFather?.type === 'STRATEGIC'"
+      ><b>Objetivo Estratégico:</b><br />
+      {{ data.objectiveFather.title }}</span
+    >
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!objective.title || !objective.teamId"
+    >
+      Salvar
+    </button>
+  </mat-dialog-actions>
+</form>

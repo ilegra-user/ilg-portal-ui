@@ -1,0 +1,41 @@
+<div class="pt-3">
+  <div class="flex justify-end">
+    <button mat-raised-button color="primary" (click)="openCycleDialog(null)">
+      Cadastrar
+    </button>
+  </div>
+  <div class="flex">
+    <table class="table table-striped">
+      <thead>
+        <th>Ciclo</th>
+        <th>Vigencia</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cycle of cycles">
+          <td>{{ cycle.title }}</td>
+          <td>
+            {{ cycle.startDate | date: "dd/MM/yyyy" }} -
+            {{ cycle.endDate | date: "dd/MM/yyyy" }}
+          </td>
+          <td class="text-right">
+            <button
+              mat-icon-button
+              matTooltip="Editar Ciclo"
+              (click)="openCycleDialog(cycle.id)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              matTooltip="Remover Ciclo"
+              (click)="removeCycle(cycle.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

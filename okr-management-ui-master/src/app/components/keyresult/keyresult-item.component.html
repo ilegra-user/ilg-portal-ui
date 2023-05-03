@@ -1,0 +1,188 @@
+<mat-accordion
+  multi
+  class="flex items-center relative"
+  style="width: calc(100% - 40px)"
+>
+  <a
+    class="flex items-center justify-between p-2 h-12 cursor-pointer absolute z-10 top-0"
+    matTooltip="Resultado Chave"
+    style="margin-right: 10px; cursor: pointer; text-decoration: none"
+    [ngStyle]="{
+      'margin-left':
+        objective.objectiveFatherId && objective.type === 'OPERATIONAL'
+          ? '80px'
+          : objective.objectiveFatherId && objective.type === 'TATIC'
+          ? '55px'
+          : '30px'
+    }"
+    [matMenuTriggerFor]="menu"
+  >
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M14.0001 6.66667H8.43341C8.15879 5.88699 7.64898 5.21175 6.97431 4.73411C6.29964 4.25647 5.49338 3.99997 4.66675 4C2.46008 4 0.666748 5.79333 0.666748 8C0.666748 10.2067 2.46008 12 4.66675 12C5.49338 12 6.29964 11.7435 6.97431 11.2659C7.64898 10.7883 8.15879 10.113 8.43341 9.33333H8.66675L10.0001 10.6667L11.3334 9.33333L12.6667 10.6667L15.3334 7.97333L14.0001 6.66667ZM4.66675 10C3.56675 10 2.66675 9.1 2.66675 8C2.66675 6.9 3.56675 6 4.66675 6C5.76675 6 6.66675 6.9 6.66675 8C6.66675 9.1 5.76675 10 4.66675 10Z"
+        fill="#7C35A6"
+      />
+    </svg>
+  </a>
+  <mat-menu #menu="matMenu">
+    <button
+      mat-menu-item
+      style="height: 30px; display: flex; align-items: center"
+      (click)="editKeyResult()"
+    >
+      Editar Resultado Chave
+    </button>
+    <button
+      mat-menu-item
+      style="height: 30px; display: flex; align-items: center"
+      (click)="removeKeyResult()"
+    >
+      Excluir Resultado Chave
+    </button>
+  </mat-menu>
+
+  <mat-expansion-panel
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+    class="flex items-center justify-between w-full mat-elevation-z0 m-0 left-20"
+    style="
+      margin: 0;
+      padding-left: 0;
+      padding-right: 0;
+      width: calc(100% - 40px);
+    "
+    hideToggle
+    *ngIf="!removed"
+  >
+    <mat-expansion-panel-header
+      style="padding: 0 5px"
+      class="h-12 ml-0"
+      (click)="(elementHeight)"
+      [ngStyle]="{
+        'margin-left':
+          objective.objectiveFatherId && objective.type === 'OPERATIONAL'
+            ? '30px'
+            : objective.objectiveFatherId && objective.type === 'TATIC'
+            ? '5px'
+            : '0px'
+      }"
+    >
+      <div class="flex justify-between w-full">
+        <div class="w-4/5 pl-0">
+          <span
+            class="w-[300px] sm:w-[600px] 2xl:w-[800px] block truncate"
+            matTooltip="{{ keyresult.description }}"
+            >{{ keyresult.description }}</span
+          >
+        </div>
+        <div class="w-1/5 flex justify-end">
+          <div
+            class="keyresult-card-progress font-bold w-20 flex content-center justify-center"
+            [ngStyle]="{ color: progressColor }"
+            matTooltip="Valor Base: {{keyresult.baseline}}      |      Valor Atual: {{keyresult.value}}      |      Valor Alvo: {{keyresult.target}}"
+          >
+            {{ keyresult.progress | number }}%
+          </div>
+          <button (click)="toggle()" class="flex text-[#FF5800] mr-2 ml-2">
+            <mat-icon>{{
+              panelOpenState ? "expand_less" : "expand_more"
+            }}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-expansion-panel-header>
+
+    <div *ngIf="initiatives">
+      <div *ngIf="initiatives?.length == 0">
+        <div class="flex text-center pl-10">
+          <h3>Nenhuma iniciativa encontrada para este resultado chave.</h3>
+        </div>
+      </div>
+      <div class="flex">
+        <div class="w-full" *ngIf="initiatives?.length > 0">
+          <div
+            class="flex w-full items-center justify-between mt-4"
+            *ngFor="let initiative of initiatives"
+          >
+            <div class="w-full">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <a
+                    [matMenuTriggerFor]="menu"
+                    style="cursor: pointer"
+                    matTooltip="Iniciativa"
+                  >
+                    <svg
+                      width="16"
+                      height="9"
+                      viewBox="0 0 16 9"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M14.0001 0.333252C13.0334 0.333252 12.4934 1.29325 12.7134 2.00659L10.3467 4.37992C10.1467 4.31992 9.85341 4.31992 9.65341 4.37992L7.95341 2.67992C8.18008 1.96659 7.64008 0.999919 6.66675 0.999919C5.70008 0.999919 5.15341 1.95992 5.38008 2.67992L2.34008 5.71325C1.62675 5.49325 0.666748 6.03325 0.666748 6.99992C0.666748 7.73325 1.26675 8.33325 2.00008 8.33325C2.96675 8.33325 3.50675 7.37325 3.28675 6.65992L6.32008 3.61992C6.52008 3.67992 6.81342 3.67992 7.01342 3.61992L8.71342 5.31992C8.48675 6.03325 9.02675 6.99992 10.0001 6.99992C10.9667 6.99992 11.5134 6.03992 11.2867 5.31992L13.6601 2.95325C14.3734 3.17325 15.3334 2.63325 15.3334 1.66659C15.3334 0.933252 14.7334 0.333252 14.0001 0.333252Z"
+                        fill="#7C35A6"
+                      />
+                    </svg>
+                  </a>
+                  <mat-menu #menu="matMenu">
+                    <button
+                      mat-menu-item
+                      (click)="openInitiativeDialog(initiative.id)"
+                    >
+                      Editar Iniciativa
+                    </button>
+                    <button
+                      mat-menu-item
+                      (click)="removeInitiative(initiative.id)"
+                    >
+                      Excluir Iniciativa
+                    </button>
+                  </mat-menu>
+
+                  <span
+                    matTooltip="{{ initiative.description }}"
+                    [ngClass]="{ 'initiative-through': initiative.status === 'DONE' }"
+                    style="margin-left: 20px"
+                    >{{ initiative.title }}
+                  </span>
+                </div>
+
+                <div class="basis-1/12">
+                  <div class="w-20 mr-11 flex justify-center">
+                    <mat-checkbox
+                      class="example-margin"
+
+                      matTooltip="{{
+                        initiative.status === 'DONE'
+                          ? 'Concluída'
+                          : 'Aguardando'
+                      }}"
+                      [checked]="initiative.status === 'DONE'"
+                      (change)="changeInitiativeStatus(initiative)"
+                    >
+                    </mat-checkbox>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        (click)="openInitiativeDialog(null)"
+        matTooltip="Nova Iniciativa"
+        class="text-black border px-5 py-2 mt-5 rounded-md"
+      >
+        <span>+</span>
+        Adicionar iniciativa
+      </button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

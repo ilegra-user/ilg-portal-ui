@@ -1,0 +1,17 @@
+::ng-deep.mat-expansion-panel-body {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  border: none !important;
+}
+
+::ng-deep.mat-expansion-panel-header.mat-expanded {
+  height: 48px !important;
+}
+
+::ng-deep.mat-expansion-panel-header:hover {
+  background-color: white !important;
+}
+
+objective-item:nth-child(2) {
+  border: red solid !important;
+}
