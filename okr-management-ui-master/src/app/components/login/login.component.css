@@ -1,21 +1,92 @@
-::ng-deep.mat-form-field-appearance-outline .mat-form-field-outline {
-  color: #cac4d0;
+.login-bg {
+  height: 100vh;
+  background: #ffd101;
 }
 
-::ng-deep.mat-form-field-appearance-outline.mat-focused
-  .mat-form-field-outline-thick {
-  color: #cac4d0;
+.login-title {  
+  left: 50%;
+  position: absolute;
+  bottom: calc(50% + 168px);
+  transform: translateX(-50%);
+
+  text-align: center;
+  font-weight: 600;
+  font-size: 2rem;
+  color: #fbfcff;
 }
 
-::ng-deep.mat-form-field-appearance-outline.mat-focused.mat-form-field-outline-thick::placeholder {
-  color: #cac4d0;
+.login-card {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+
+  width: 90vw;
+  height: 90vh;
+  max-width: 335px;
+  max-height: 227px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #ffffff;
+  box-shadow: 0px 2px 4px -2px rgba(64, 26, 94, 0.32),
+    0px 4px 12px 2px rgba(106, 49, 167, 0.24);
 }
 
-::ng-deep.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid
-  .mat-form-field-outline-thick {
-  color: #f2b8b5;
+.card-header {
+  width: 100%;
+  height: 100px;
+  padding-top: 2.2rem;
+
+  color: #fbfcff;
+  text-align: center;
+  font-weight: bolder;
+  font-size: 1.3rem;
+
+  background: #7d51d1;
 }
 
-::ng-deep.mat-checkbox-frame {
-  border-color: #cac4d0;
+.card-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  width: 100%;
+  height: 100%;
+  padding: 0 24px;
+  justify-content: center;
+}
+
+button {
+  width: 100%;
+  padding: 12px 0;
+
+  border-radius: 0.5rem;
+}
+
+.google {
+  color: #ffffff;
+  background: #7d51d1;
+}
+
+.forgot {
+  color: #7d51d1;
+  background: #ffffff;
+}
+
+.people-img {
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+.ilegra-img {
+  left: -46px;
+  top: 5px;
+  position: absolute;
+  transform: scale(0.65);
 }
