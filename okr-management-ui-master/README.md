@@ -1,6 +1,17 @@
 # OkrManagementUi
 
-## Rodando local
+## Para Rodar o Projeto
+ -Após fazer a clonagem do repositório no github, o usuário deve abrir o terminal integrado com as pastas do projeto por exemplo: "(a pasta que clonou o repositório)/ilg-portal-ui/okr-management-ui-master".
+
+ -Dar o comando npm install;
+
+ -Em seguida, deve executar o comando npm start;
+
+ -Após isso, basta clicar na porta que aparecera no terminal. Normalamente deve apresentar o seguine caminho http://localhost:3000/.
+
+ -Logo em seguida o seu browser será aberto e o programa estará rodando.
+
+ 
 
 > Processo para rodar e atualizar o projeto localmente, (e que precisaremos automatizar em algum momento)
 

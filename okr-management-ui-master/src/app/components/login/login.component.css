@@ -25,7 +25,7 @@
   width: 90vw;
   height: 90vh;
   max-width: 335px;
-  max-height: 227px;
+  max-height: 184px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,11 +71,6 @@ button {
 .google {
   color: #ffffff;
   background: #7d51d1;
-}
-
-.forgot {
-  color: #7d51d1;
-  background: #ffffff;
 }
 
 .people-img {
